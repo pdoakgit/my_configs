@@ -78,8 +78,6 @@
          (add-to-list 'load-path "/Users/Shared/ornldev/code/DCA-2/tools/emacs"))
         (t (add-to-list 'load-path "/raid/epd/qmcpack/utils/code_tools")
            (add-to-list 'load-path "/raid/epd/DCA-2/tools/emacs")))
-  (require 'qmcpack-style)
-  (require 'dca-style)
   ;;  (require 'mrpapp-style)
   (use-feature cc-mode
     :config
@@ -133,7 +131,7 @@
     (cl-loop for char from ?a to ?z
              do (define-key input-decode-map (format "\e[1;P%c" char) (kbd (format "s-%c" char))))
     )
-  (when (radian-operating-system-p darwin)
+  (when (or (radian-operating-system-p darwin) (radian-operating-system-p osx))
     (setq mac-command-modifier 'control)
     (setq mac-control-modifier 'meta)
     (setq mac-option-modifier 'super)
