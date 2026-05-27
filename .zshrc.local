@@ -106,4 +106,29 @@ radian_after_init_hook() {
 
     export PATH=~/.local/share/znap/junegunn/fzf/bin:$PATH
     source <(fzf --zsh)
+
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+export PATH=/home/peter/opt/emacs-30/bin:/home/peter/opt/emacs-30/bin:/home/peter/.local/share/znap/junegunn/fzf/bin:/usr/local/sbin:/raid/epd/spack/opt/spack/linux-skylake_avx512/zsh-5.9.0.2-a5gtwakb7lxtthuszyqodbbmmyyyzq7p/bin:/home/peter/.local/share/../bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/snap/bin:/home/peter/.local/share/znap/radian-software/wdx/bin
+export PATH=${PATH}:/home/peter/.local/share/znap/junegunn/fzf/bin
+
+pi-dev() {
+podman run -it \
+  --userns=keep-id \
+  --hostname pi-dev \
+  --device /dev/dxg \
+  -v ~/pi-podman/workspace:/workspace:rw \
+  -v ~/pi-podman/config:/home/peter/.config:rw \
+  -v ~/pi-podman/state:/home/peter/.local/share/pi:rw \
+  -v ~/pi-podman/ssh:/home/peter/.ssh:rw \
+  -v ~/pi-podman/spack:/home/peter/.spack:rw \
+  -v ~/pi-podman/ccache:/home/peter/.cache/ccache:rw \
+  -e FIREWORKS_API_KEY=REDACTED \
+  -e CCACHE_DIR=/home/peter/.cache/ccache \
+  -e CCACHE_MAXSIZE=10G \
+  -v /usr/lib/wsl/lib:/usr/lib/wsl/lib:ro \
+  pi-dev \
+  "$@"
 }

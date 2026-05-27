@@ -108,6 +108,15 @@
 	   ("s-i" . #'lsp-ui-peek-find-implementation))
     )
 
+
+  ;; Per-mode exclusions
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (setq-local lsp-disabled-clients '(copilot-ls))
+              ;; Or if using copilot.el instead of LSP:
+              ;; (when (bound-and-true-p copilot-mode) (copilot-mode -1))
+              ))
+
   ;; (radian-use-package ts-mode)
   (radian-use-package awk-ts-mode
     :straight (:host github :repo "nverno/awk-ts-mode")
@@ -240,6 +249,7 @@ functions it contains."
          (current-buffer)))))
 
   (setq compilation-skip-threshold 1)
+  (setq inhibit-default-init t)
   )
 
 
